@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Company.Function.Models;
+using Azure.Identity;
+
 
 namespace Company.Function
 {
@@ -24,8 +26,16 @@ namespace Company.Function
             {
                 List<Registration> registrations = new List<Registration>();
 
-                using (SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable("connectionString")))
+                // Use DefaultAzureCredential to get a token
+                var credential = new DefaultAzureCredential();
+                var token = credential.GetToken(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
+
+                string connectionString = "Server=tcp:labo3.database.windows.net,1433;Initial Catalog=labo3;TrustServerCertificate=False";
+
+                // using (SqlConnection connection = new SqlConnection(Environment.GetEnvironmentVariable("connectionString")))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
+                    connection.AccessToken = token.Token;
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand())
                     {
