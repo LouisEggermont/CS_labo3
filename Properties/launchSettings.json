@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "CS_labo3": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7047",
+      "launchBrowser": false
+    }
+  }
+}
