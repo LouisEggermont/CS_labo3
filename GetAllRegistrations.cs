@@ -80,7 +80,7 @@ namespace Company.Function
 
                 log.LogError(ex, "An error occurred while processing the request.");
 
-                throw;
+                throw new ApplicationException("An unexpected error occurred. Please try again later or contact support.", ex);
 
                 // Return an appropriate error response
                 // return new StatusCodeResult(StatusCodes.Status500InternalServerError);
