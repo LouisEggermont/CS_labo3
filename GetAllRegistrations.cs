@@ -77,10 +77,13 @@ namespace Company.Function
             catch (Exception ex)
             {
                 // Log the exception
+
                 log.LogError(ex, "An error occurred while processing the request.");
 
+                throw;
+
                 // Return an appropriate error response
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                // return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
     }
